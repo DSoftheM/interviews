@@ -2,6 +2,7 @@ const fs = require("fs")
 const path = require("path")
 
 const docsDir = path.join(__dirname, "docs/questions")
+///Users/artur/Library/Mobile Documents/iCloud~md~obsidian/Documents/moon/Interview
 const sidebarFile = path.join(__dirname, "sidebars.ts")
 
 function buildSidebarItems(dir, relative = "questions") {

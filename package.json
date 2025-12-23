@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "generate-sidebar": "node generate-sidebar.js",
-    "build": "npm run generate-sidebar && docusaurus build",
-    "start": "npm run generate-sidebar && docusaurus start",
+    "copy-questions": "node copy-questions.js",
+    "build": "npm run copy-questions && npm run generate-sidebar && docusaurus build",
+    "start": "npm run copy-questions && npm run generate-sidebar && docusaurus start",
     "docusaurus": "docusaurus",
     "swizzle": "docusaurus swizzle",
     "_deploy": "docusaurus deploy",
