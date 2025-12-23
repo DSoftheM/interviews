@@ -1,6 +1,6 @@
 const sidebars = {
   tutorialSidebar: [
-    'questions/f',
+    'questions/so',
 {
   type: 'category',
   label: 'ozon tech',

@@ -4,6 +4,22 @@ const path = require("path")
 const srcDir = "/Users/artur/Library/Mobile Documents/iCloud~md~obsidian/Documents/moon/Interview"
 const destDir = "/Users/artur/dev/interview/docs/questions"
 
+// Функция для удаления папки и всего её содержимого
+function removeDirRecursive(dir) {
+  if (fs.existsSync(dir)) {
+    fs.readdirSync(dir).forEach((file) => {
+      const curPath = path.join(dir, file)
+      if (fs.lstatSync(curPath).isDirectory()) {
+        removeDirRecursive(curPath)
+      } else {
+        fs.unlinkSync(curPath)
+      }
+    })
+    fs.rmdirSync(dir)
+  }
+}
+
+// Функция для копирования .md файлов рекурсивно
 function copyMdFiles(src, dest) {
   const entries = fs.readdirSync(src, { withFileTypes: true })
 
@@ -12,24 +28,26 @@ function copyMdFiles(src, dest) {
     const destPath = path.join(dest, entry.name)
 
     if (entry.isDirectory()) {
-      // Создаём папку назначения, если её нет
       if (!fs.existsSync(destPath)) {
         fs.mkdirSync(destPath, { recursive: true })
       }
-      copyMdFiles(srcPath, destPath) // рекурсивно копируем
+      copyMdFiles(srcPath, destPath)
     } else if (entry.isFile() && entry.name.endsWith(".md")) {
-      // Копируем файл
       fs.copyFileSync(srcPath, destPath)
       console.log(`Копирован: ${srcPath} → ${destPath}`)
     }
   })
 }
 
-// Создаём корневую папку назначения, если нет
-if (!fs.existsSync(destDir)) {
-  fs.mkdirSync(destDir, { recursive: true })
+// Удаляем папку назначения целиком
+if (fs.existsSync(destDir)) {
+  removeDirRecursive(destDir)
 }
 
+// Создаём пустую папку назначения
+fs.mkdirSync(destDir, { recursive: true })
+
+// Копируем файлы
 copyMdFiles(srcDir, destDir)
 
-console.log("✅ Все .md файлы скопированы!")
+console.log("✅ Все .md файлы скопированы заново!")
