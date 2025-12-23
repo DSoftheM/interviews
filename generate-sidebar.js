@@ -1,40 +1,44 @@
 const fs = require("fs")
 const path = require("path")
 
-const docsDir = path.join(__dirname, "docs/questions") // путь к Markdown-файлам
+const docsDir = path.join(__dirname, "docs/questions")
 const sidebarFile = path.join(__dirname, "sidebars.ts")
 
-function getAllMdFiles(dir) {
-  let results = []
-  const list = fs.readdirSync(dir)
-  list.forEach((file) => {
-    const fullPath = path.join(dir, file)
-    const stat = fs.statSync(fullPath)
-    if (stat.isDirectory()) {
-      results = results.concat(getAllMdFiles(fullPath))
-    } else if (file.endsWith(".md")) {
-      results.push({
-        path: fullPath,
-        birthtime: stat.birthtime, // дата создания файла
-        relativePath: path.relative(path.join(__dirname, "docs"), fullPath).replace(/\\/g, "/"),
-      })
+function buildSidebarItems(dir, relative = "questions") {
+  const list = fs.readdirSync(dir, { withFileTypes: true })
+  let items = []
+
+  list.forEach((entry) => {
+    const fullPath = path.join(dir, entry.name)
+    const relativePath = path.join(relative, entry.name).replace(/\\/g, "/")
+
+    if (entry.isDirectory()) {
+      // рекурсивно создаём категорию
+      const subItems = buildSidebarItems(fullPath, relativePath)
+      if (subItems.length > 0) {
+        items.push(`{
+  type: 'category',
+  label: '${entry.name}',
+  items: [
+    ${subItems.join(",\n")}
+  ]
+}`)
+      }
+    } else if (entry.isFile() && entry.name.endsWith(".md")) {
+      // убираем .md для Docusaurus
+      const id = relativePath.replace(/\.md$/, "")
+      items.push(`'${id}'`)
     }
   })
-  return results
+
+  return items
 }
 
-const files = getAllMdFiles(docsDir)
+const items = buildSidebarItems(docsDir)
 
-// сортировка по дате создания (сначала новые)
-files.sort((a, b) => b.birthtime - a.birthtime)
-
-// строим массив для sidebar
-const items = files.map((f) => `'${f.relativePath.replace(/\.md$/, "")}'`).join(",\n  ")
-
-// генерируем sidebars.ts
 const sidebarContent = `const sidebars = {
   tutorialSidebar: [
-    ${items}
+    ${items.join(",\n")}
   ],
 };
 
@@ -42,4 +46,4 @@ export default sidebars;
 `
 
 fs.writeFileSync(sidebarFile, sidebarContent)
-console.log("✅ sidebars.ts сгенерирован автоматически!")
+console.log("✅ sidebars.ts сгенерирован с группировкой по папкам!")
