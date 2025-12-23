@@ -1,24 +1,24 @@
 const sidebars = {
   tutorialSidebar: [
-    'SOFTINTERMOB HK',
-'finam',
-'ozon fbo',
+    'questions/pyrus tech 2',
+'questions/trim tech',
+'questions/SOFTINTERMOB HK',
+'questions/finam',
+'questions/ozon fbo',
 {
   type: 'category',
   label: 'ozon tech',
   items: [
-    'ozon tech/1 мое решение',
-'ozon tech/1',
-'ozon tech/2 мое решение',
-'ozon tech/2',
-'ozon tech/3 мое решение',
-'ozon tech/3',
-'ozon tech/4 мое решение',
-'ozon tech/4'
+    'questions/ozon tech/4',
+'questions/ozon tech/1',
+'questions/ozon tech/2 мое решение',
+'questions/ozon tech/2',
+'questions/ozon tech/3 мое решение',
+'questions/ozon tech/3',
+'questions/ozon tech/4 мое решение',
+'questions/ozon tech/1 мое решение'
   ]
-},
-'pyrus tech 2',
-'trim tech'
+}
   ],
 };
 

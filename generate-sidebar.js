@@ -8,6 +8,15 @@ function buildSidebarItems(dir, relative = "questions") {
   const list = fs.readdirSync(dir, { withFileTypes: true })
   let items = []
 
+  // Сортируем список по дате создания
+  list.sort((a, b) => {
+    const aPath = path.join(dir, a.name)
+    const bPath = path.join(dir, b.name)
+    const aStat = fs.statSync(aPath)
+    const bStat = fs.statSync(bPath)
+    return bStat.birthtime - aStat.birthtime
+  })
+
   list.forEach((entry) => {
     const fullPath = path.join(dir, entry.name)
     const relativePath = path.join(relative, entry.name).replace(/\\/g, "/")
