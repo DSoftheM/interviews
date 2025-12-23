@@ -1,7 +1,6 @@
 const sidebars = {
   tutorialSidebar: [
-    'questions/so',
-{
+    {
   type: 'category',
   label: 'ozon tech',
   items: [
@@ -15,8 +14,8 @@ const sidebars = {
 'questions/ozon tech/3'
   ]
 },
-'questions/pyrus tech 2',
 'questions/trim tech',
+'questions/pyrus tech 2',
 'questions/SOFTINTERMOB HK',
 'questions/finam',
 'questions/ozon fbo'
