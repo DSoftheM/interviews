@@ -1,8 +1,8 @@
+const { spawn } = require("child_process")
 const fs = require("fs")
 const path = require("path")
 
-const docsDir = path.join(__dirname, "docs/questions")
-///Users/artur/Library/Mobile Documents/iCloud~md~obsidian/Documents/moon/Interview
+const docsDir = "/Users/artur/Library/Mobile Documents/iCloud~md~obsidian/Documents/moon/Interview"
 const sidebarFile = path.join(__dirname, "sidebars.ts")
 
 function buildSidebarItems(dir, relative = "questions") {
@@ -56,4 +56,5 @@ export default sidebars;
 `
 
 fs.writeFileSync(sidebarFile, sidebarContent)
+spawn("npx", ["prettier", "--write", sidebarFile], { stdio: "inherit" })
 console.log("✅ sidebars.ts сгенерирован с группировкой по папкам!")
