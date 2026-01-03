@@ -1,5 +1,6 @@
 const sidebars = {
   tutorialSidebar: [
+    "questions/signal",
     "questions/pyrus tech 2",
     "questions/trim tech",
     "questions/SOFTINTERMOB HK",
