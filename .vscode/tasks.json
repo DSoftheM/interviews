@@ -2,6 +2,11 @@
   "version": "2.0.0",
   "tasks": [
     {
+      "label": "generate-excalidraw-mdx",
+      "type": "shell",
+      "command": "npm run generate-excalidraw-mdx"
+    },
+    {
       "label": "generate-sidebar",
       "type": "shell",
       "command": "npm run generate-sidebar"

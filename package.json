@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "generate-sidebar": "node generate-sidebar.js",
+    "generate-excalidraw-mdx": "node scripts/generate-excalidraw-mdx.js",
     "copy-questions": "node copy-questions.js",
-    "build": "npm run copy-questions && npm run generate-sidebar && docusaurus build",
-    "start": "npm run copy-questions && npm run generate-sidebar && docusaurus start",
+    "build": "npm run copy-questions && npm run generate-excalidraw-mdx && npm run generate-sidebar && docusaurus build",
+    "start": "npm run copy-questions && npm run generate-excalidraw-mdx && npm run generate-sidebar && docusaurus start",
     "docusaurus": "docusaurus",
     "swizzle": "docusaurus swizzle",
     "_deploy": "docusaurus deploy",
@@ -27,13 +28,15 @@
     "gray-matter": "^4.0.3",
     "prism-react-renderer": "^2.3.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "roughjs": "^4.6.6"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.9.2",
     "@docusaurus/tsconfig": "3.9.2",
     "@docusaurus/types": "3.9.2",
     "gh-pages": "^6.3.0",
+    "process": "^0.11.10",
     "typescript": "~5.6.2"
   },
   "browserslist": {

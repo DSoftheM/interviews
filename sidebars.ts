@@ -7,6 +7,7 @@ const sidebars = {
         "questions/CircularBuffer/ThreadSafeCircularBuffer.cs",
         "questions/CircularBuffer/CircularBuffer-Array.cs",
         "questions/CircularBuffer/CircularBuffer-LinkedList.cs",
+        "questions/CircularBuffer/drawing",
       ],
     },
     "questions/pyrus 1",

@@ -36,7 +36,7 @@ function buildSidebarItems(dir, relative = "questions") {
       }
     } else if (entry.isFile() && entry.name.endsWith(".md")) {
       // убираем .md для Docusaurus
-      const id = relativePath.replace(/\.md$/, "")
+      const id = relativePath.replace(/\.excalidraw/, "").replace(/\.md$/, "")
       items.push(`'${id}'`)
     }
   })

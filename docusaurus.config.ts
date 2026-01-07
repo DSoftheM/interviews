@@ -1,6 +1,7 @@
 import { themes as prismThemes } from "prism-react-renderer"
 import type { Config } from "@docusaurus/types"
 import type * as Preset from "@docusaurus/preset-classic"
+import path from "path"
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -44,6 +45,26 @@ const config: Config = {
         },
       } satisfies Preset.Options,
     ],
+  ],
+
+  plugins: [
+    function fixRoughjsAndProcess() {
+      return {
+        name: "fix-process",
+        configureWebpack() {
+          const webpack = require("webpack")
+          return {
+            resolve: {
+              alias: {
+                "roughjs/bin/rough": path.resolve(__dirname, "/node_modules/roughjs/bin/rough.js"),
+                "roughjs/bin/generator": path.resolve(__dirname, "/node_modules/roughjs/bin/generator.js"),
+                "roughjs/bin/math": path.resolve(__dirname, "/node_modules/roughjs/bin/math.js"),
+              },
+            },
+          }
+        },
+      }
+    },
   ],
 
   themeConfig: {
