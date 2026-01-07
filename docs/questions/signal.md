@@ -70,7 +70,33 @@ public static class NodesCleaner
 {
     public static void Clean(Node root)
     {
-        throw new NotImplementedException();
+        // Корень никогда не удаляем
+        CleanInternal(root);
+    }
+
+    private static bool CleanInternal(Node node)
+    {
+        // Если узел жив — сохраняем ВСЁ поддерево
+        if (node.Alive)
+            return true;
+
+        // Иначе — проверяем детей
+        for (var i = node.Children.Count - 1; i >= 0; i--)
+        {
+            var child = node.Children[i];
+
+            var keepChild = CleanInternal(child);
+
+            if (!keepChild)
+                node.Children.RemoveAt(i);
+        }
+
+        // Корень всегда сохраняем
+        if (node.ParentId == null)
+            return true;
+
+        // Узел живёт, если у него остались дети
+        return node.Children.Count > 0;
     }
 }
 
